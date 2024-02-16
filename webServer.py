@@ -39,7 +39,12 @@ def webServer(port=13331):
 
       connectionSocket.send(outputdata)
       #Note that a complete header must end with a blank line, creating the four-byte sequence "\r\n\r\n" Refer to https://w3.cs.jmu.edu/kirkpams/OpenCSF/Books/csf/html/TCPSockets.html
- 
+
+      # Open and send the content of the requested HTML file to the client
+      with open("sample.html", "rb") as f:
+        content = f.read()
+        connectionSocket.sendall(content)
+                
       #Fill in end
                
       for i in f: #for line in file
@@ -48,7 +53,9 @@ def webServer(port=13331):
         
       #Send the content of the requested file to the client (don't forget the headers you created)!
       # Fill in start
-
+      with open(filename[1:], "rb") as f:
+        content = f.read()
+        connectionSocket.sendall(content)
 
       # Fill in end
       f.close()
